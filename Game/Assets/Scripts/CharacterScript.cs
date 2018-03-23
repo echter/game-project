@@ -1,36 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterScript : MonoBehaviour
 {
-    private Rigidbody characterBody;
+    public NavMeshAgent character;
 
-    private float speed = 5f;
-    private float spacing = 0.05f;
-    private Vector3 pos;
- 
-    void Start()
+    void Awake()
     {
-        characterBody = GetComponent<Rigidbody>();
-        pos = transform.position;
+        character = GetComponent<NavMeshAgent>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-           characterBody.velocity = new Vector3(0, 0, speed);
-        if (Input.GetKey(KeyCode.DownArrow))
-            characterBody.velocity = new Vector3(0, 0, -speed);
-        if (Input.GetKey(KeyCode.LeftArrow))
-            characterBody.velocity = new Vector3(-speed, 0, 0);
-        if (Input.GetKey(KeyCode.RightArrow))
-            characterBody.velocity = new Vector3(speed, 0, 0);
-
-        if (characterBody.velocity.magnitude > 20)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f) && Input.GetMouseButtonDown(1))
         {
-            characterBody.velocity = Vector3.forward * 20;
+            character.destination = hit.point;
         }
-
     }
+
 }
