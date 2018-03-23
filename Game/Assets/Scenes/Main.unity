@@ -288,30 +288,52 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 195427215270716174, guid: 69f4d23424db7434c981152b7b056300,
+    - target: {fileID: 114796080694350178, guid: 69f4d23424db7434c981152b7b056300,
         type: 2}
-      propertyPath: m_ObstacleAvoidanceType
+      propertyPath: spell
+      value: 
+      objectReference: {fileID: 1285901047664116, guid: aaa35499edac31a41bdc2812ebf89784,
+        type: 2}
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195427215270716174, guid: 69f4d23424db7434c981152b7b056300,
-        type: 2}
-      propertyPath: m_AutoRepath
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195427215270716174, guid: 69f4d23424db7434c981152b7b056300,
-        type: 2}
-      propertyPath: m_Acceleration
-      value: 200
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.417
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 195427215270716174, guid: 69f4d23424db7434c981152b7b056300,
         type: 2}
-      propertyPath: m_Speed
-      value: 6
+      propertyPath: m_AngularSpeed
+      value: 900
       objectReference: {fileID: 0}
-    - target: {fileID: 195427215270716174, guid: 69f4d23424db7434c981152b7b056300,
-        type: 2}
-      propertyPath: m_AutoBraking
-      value: 1
+    - target: {fileID: 4770585185976002, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69f4d23424db7434c981152b7b056300, type: 2}
@@ -327,7 +349,7 @@ GameObject:
   - component: {fileID: 1610523811}
   - component: {fileID: 1610523810}
   - component: {fileID: 1610523809}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +370,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: eecd13b929eb28e449ee29b6c0fe4253, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
