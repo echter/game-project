@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Networking;
 
 public class SpellScript : MonoBehaviour
 {
 
-    public Vector3 destination;
-    private Vector3 direction;
+    public GameObject collisionEffect;
 
-    private float spellSpeed = 0.3f;
-
-    // Use this for initialization
-    void Start () {
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.GetComponent<Rigidbody>() && col.gameObject.GetComponent<NavMeshAgent>())
+        {
+            col.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            col.gameObject.GetComponent<Rigidbody>().velocity = (GetComponent<Rigidbody>().velocity);
+            Debug.Log(GetComponent<Rigidbody>().velocity + "     " + col.gameObject.GetComponent<Rigidbody>().velocity);
+        }
+        GameObject go = Instantiate(collisionEffect, this.transform.position, collisionEffect.transform.rotation);
+        Destroy(go, 1.1f);
+        Destroy(this.gameObject);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-	{
-        // TODO
-	    transform.Translate(destination * spellSpeed);
-	}
 }
