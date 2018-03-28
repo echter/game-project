@@ -29,7 +29,7 @@ public class PlayerController : NetworkBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            CmdWalk();
+            Walk();
         }
         if (Input.GetMouseButtonDown(0))
         {
@@ -41,30 +41,34 @@ public class PlayerController : NetworkBehaviour
     {
         if (walkGoal != Vector3.zero)
         {
-            // Walk
-            transform.position = Vector3.MoveTowards(transform.position, walkGoal, speed);
-
-            float distance = (walkGoal - transform.position).magnitude;
-
-            if (distance > 1)
-            {
-                // Rotate
-                Vector3 dir = (cutYdimention(walkGoal) - cutYdimention(transform.position)).normalized;
-                Quaternion lookRotation = Quaternion.LookRotation(dir);
-
-                // Snap if distance is small
-                if (distance < 2)
-                {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 50);
-                }
-
-                transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 5);
-            }
+            CmdWalkLogic();
+            Debug.Log(characterBody.position);
         }
     }
 
     [Command]
-    void CmdWalk()
+    void CmdWalkLogic()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, walkGoal, speed);
+        float distance = (walkGoal - transform.position).magnitude;
+
+        if (distance > 1)
+        {
+            // Rotate
+            Vector3 dir = (cutYdimention(walkGoal) - cutYdimention(transform.position)).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(dir);
+
+            // Snap if distance is small
+            if (distance < 2)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 50);
+            }
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 5);
+        }
+    }
+
+    void Walk()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
