@@ -8,8 +8,10 @@ public class SpellController : MonoBehaviour
     public GameObject effect;
     public float speed = 0.1f;
 
+    public float stunTime = 1.0f;
+
     private Vector3 velocity;
-    private float knockbackFactor = 150.0f;
+    public float knockbackFactor = 100.0f;
 
 	// Use this for initialization
 	void Start ()
@@ -18,9 +20,9 @@ public class SpellController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-        velocity = new Vector3(gameObject.transform.forward.x, 0, gameObject.transform.forward.z) * speed;
+        velocity = new Vector3(gameObject.transform.forward.x * speed, 0, gameObject.transform.forward.z * speed);
         gameObject.transform.position += velocity;
 	}
 

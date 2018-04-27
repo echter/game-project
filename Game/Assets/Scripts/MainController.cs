@@ -55,7 +55,7 @@ public class MainController : MonoBehaviour
 	        }
 
             // If walking, run walk code
-	        if (status == 1)
+            if (status == 1)
 	        {
 	            Walk();
 	        }
@@ -125,8 +125,6 @@ public class MainController : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("spell"))
         {
-            // set state to 'stunned'
-            rb.AddForce(direction);
             status = 0;
         }
     }

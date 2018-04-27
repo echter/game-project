@@ -22,8 +22,6 @@ GameObject:
   - component: {fileID: 33673783134826898}
   - component: {fileID: 23289789465848584}
   - component: {fileID: 65355830517005992}
-  - component: {fileID: 114056274655764738}
-  - component: {fileID: 114864804080036764}
   - component: {fileID: 114350951515699268}
   - component: {fileID: 54604519269409436}
   m_Layer: 0
@@ -114,17 +112,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114056274655764738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1285901047664116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9be26f7530ff0b44eaf9e1a7aa08cced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114350951515699268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,36 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 1039559818462738, guid: 97a85cbebe50e3c42a96c042e24da929, type: 2}
-  speed: 0.1
---- !u!114 &114864804080036764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1285901047664116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 170
-    i1: 163
-    i2: 84
-    i3: 153
-    i4: 237
-    i5: 172
-    i6: 49
-    i7: 164
-    i8: 27
-    i9: 220
-    i10: 40
-    i11: 18
-    i12: 235
-    i13: 248
-    i14: 151
-    i15: 132
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  speed: 0.3
+  stunTime: 1
+  knockbackFactor: 150
