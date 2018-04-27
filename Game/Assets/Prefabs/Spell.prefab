@@ -21,14 +21,14 @@ GameObject:
   - component: {fileID: 4587617353158376}
   - component: {fileID: 33673783134826898}
   - component: {fileID: 23289789465848584}
-  - component: {fileID: 114719840845442460}
-  - component: {fileID: 114183701319078312}
-  - component: {fileID: 54138262340530826}
   - component: {fileID: 65355830517005992}
-  - component: {fileID: 114630664311282024}
+  - component: {fileID: 114056274655764738}
+  - component: {fileID: 114864804080036764}
+  - component: {fileID: 114350951515699268}
+  - component: {fileID: 54604519269409436}
   m_Layer: 0
   m_Name: Spell
-  m_TagString: Untagged
+  m_TagString: spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,13 +39,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1285901047664116}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.9304193, z: -0, w: -0.36649677}
+  m_LocalPosition: {x: -2.75148, y: 2.02, z: 3.9673462}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 222.999, z: 0}
 --- !u!23 &23289789465848584
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -87,18 +87,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1285901047664116}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54138262340530826
+--- !u!54 &54604519269409436
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1285901047664116}
   serializedVersion: 2
-  m_Mass: 3000
+  m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -114,7 +114,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114183701319078312
+--- !u!114 &114056274655764738
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -122,20 +122,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1285901047664116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 9be26f7530ff0b44eaf9e1a7aa08cced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
---- !u!114 &114630664311282024
+--- !u!114 &114350951515699268
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -143,12 +133,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1285901047664116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9095fde15669e3e4db7a08797f1d59dd, type: 3}
+  m_Script: {fileID: 11500000, guid: d62b6c4dec10d8e48b15cab75b66b0ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionEffect: {fileID: 1039559818462738, guid: 97a85cbebe50e3c42a96c042e24da929,
-    type: 2}
---- !u!114 &114719840845442460
+  effect: {fileID: 1039559818462738, guid: 97a85cbebe50e3c42a96c042e24da929, type: 2}
+  speed: 0.1
+--- !u!114 &114864804080036764
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -156,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1285901047664116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:
