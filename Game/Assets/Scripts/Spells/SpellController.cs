@@ -6,10 +6,14 @@ public class SpellController : MonoBehaviour
 {
 
     public GameObject effect;
-    public float speed = 0.1f;
+    public GameObject fireEffect;
 
+    public float speed;
     private Vector3 velocity;
-    private float knockbackFactor = 150.0f;
+    public float knockbackFactor;
+
+    public float stunTime;
+
 
 	// Use this for initialization
 	void Start ()
@@ -18,15 +22,23 @@ public class SpellController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-        velocity = new Vector3(gameObject.transform.forward.x, 0, gameObject.transform.forward.z) * speed;
+        velocity = new Vector3(gameObject.transform.forward.x * speed, 0, gameObject.transform.forward.z * speed);
         gameObject.transform.position += velocity;
 	}
 
     void OnCollisionEnter(Collision collision)
     {
-        GameObject e = Instantiate(effect);
+        GameObject e;
+        if (gameObject.name.Contains("FireSpell"))
+        {
+            e = Instantiate(fireEffect);
+        }
+        else
+        {
+            e = Instantiate(effect);
+        }
         e.transform.position = gameObject.transform.position;
         Destroy(e, 2.0f);
 

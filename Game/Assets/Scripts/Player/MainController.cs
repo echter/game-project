@@ -49,13 +49,13 @@ public class MainController : MonoBehaviour
 	    else
 	    {
             // If wanting to walk, set the walk goal
-	        if (Input.GetMouseButtonDown(0))
+	        if (Input.GetMouseButtonDown(1))
 	        {
 	            setWalkLocation();
 	        }
 
             // If walking, run walk code
-	        if (status == 1)
+            if (status == 1)
 	        {
 	            Walk();
 	        }
@@ -125,8 +125,6 @@ public class MainController : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("spell"))
         {
-            // set state to 'stunned'
-            rb.AddForce(direction);
             status = 0;
         }
     }
