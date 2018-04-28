@@ -8,12 +8,12 @@ public class SpellController : MonoBehaviour
     public GameObject effect;
     public GameObject fireEffect;
 
-    public float speed = 0.1f;
-
-    public float stunTime = 1.0f;
-
+    public float speed;
     private Vector3 velocity;
-    public float knockbackFactor = 100.0f;
+    public float knockbackFactor;
+
+    public float stunTime;
+
 
 	// Use this for initialization
 	void Start ()
