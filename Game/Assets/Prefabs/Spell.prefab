@@ -96,7 +96,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 1039559818462738, guid: 97a85cbebe50e3c42a96c042e24da929, type: 2}
+  fireEffect: {fileID: 0}
   speed: 0.3
   stunTime: 1
   knockbackFactor: 150
