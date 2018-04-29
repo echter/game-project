@@ -53,7 +53,7 @@ public class SpellSpawnController : NetworkBehaviour {
             {
                 if (_primarySpellCooldownBoolean == false)
                 {
-                    CmdShootSpell(playerSpells.primarySpell, BasicSpell);
+                    ShootSpell(playerSpells.primarySpell, BasicSpell);
                     _primarySpellCooldownBoolean = true;
                 }
             }
@@ -63,7 +63,7 @@ public class SpellSpawnController : NetworkBehaviour {
             {
                 if (_secondarySpellCooldownBoolean == false)
                 {
-                    CmdShootSpell(playerSpells.secondarySpell, SecondarySpell);
+                    ShootSpell(playerSpells.secondarySpell, SecondarySpell);
                     _secondarySpellCooldownBoolean = true;
                 }
             }
@@ -107,10 +107,8 @@ public class SpellSpawnController : NetworkBehaviour {
     }
 
     // Initializes a basic spell gameObject
-    [Command]
-    public void CmdShootSpell(Spell spell, GameObject goSpell)
+    public void ShootSpell(Spell spell, GameObject goSpell)
     {
-
         // Set the rotation of the spellObject to the players rotation so it goes in the right direction
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -119,16 +117,20 @@ public class SpellSpawnController : NetworkBehaviour {
             Vector3 location = hit.point;
             RotateToPosition(location);
         }
-
-        GameObject go = Instantiate(goSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
-        NetworkServer.Spawn(go);
-        SpellController sp = go.GetComponent<SpellController>();
-
-        sp.speed = spell.Speed;
-        sp.knockbackFactor = spell.Kockback;
-        sp.stunTime = spell.StunTime;
+        CmdSpawnSpell(goSpell, spell.Speed, spell.Kockback, spell.StunTime);
         _primaryCoolDownDuration = spell.CoolDownDuration;
+    }
 
+    [Command]
+    private void CmdSpawnSpell(GameObject spell, float speed, float knockback, float stunTime)
+    {
+
+        GameObject go = Instantiate(spell, SpellSpawn.transform.position, gameObject.transform.rotation);
+        SpellController sp = go.GetComponent<SpellController>();
+        sp.speed = speed;
+        sp.knockbackFactor = knockback;
+        sp.stunTime = stunTime;
+        NetworkServer.Spawn(go);
         Destroy(go, 5.0f);
     }
 

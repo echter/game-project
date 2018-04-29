@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class SpellController : MonoBehaviour
+public class SpellController : NetworkBehaviour
 {
 
     public GameObject effect;
@@ -36,12 +37,19 @@ public class SpellController : MonoBehaviour
 
         if (collision.gameObject.tag.Equals("player"))
         {
-            MainController mainController = collision.gameObject.GetComponent<MainController>();
-            Rigidbody hitRB = collision.gameObject.GetComponent<Rigidbody>();
-            Vector3 totalVelocity = (velocity * knockbackFactor) + mainController.walkVelocity;
-            hitRB.velocity = totalVelocity;
+            DoPhysics(collision.gameObject);
         }
 
         Destroy(gameObject);
+    }
+
+
+    void DoPhysics(GameObject collision)
+    {
+        Debug.Log("doing");
+        MainController mainController = collision.GetComponent<MainController>();
+        Rigidbody hitRB = collision.GetComponent<Rigidbody>();
+        Vector3 totalVelocity = (velocity * knockbackFactor) + mainController.walkVelocity;
+        hitRB.velocity = totalVelocity;
     }
 }
