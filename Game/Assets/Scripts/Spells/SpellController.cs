@@ -6,7 +6,6 @@ public class SpellController : MonoBehaviour
 {
 
     public GameObject effect;
-    public GameObject fireEffect;
 
     public float speed;
     private Vector3 velocity;
@@ -30,15 +29,8 @@ public class SpellController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        GameObject e;
-        if (gameObject.name.Contains("FireSpell"))
-        {
-            e = Instantiate(fireEffect);
-        }
-        else
-        {
-            e = Instantiate(effect);
-        }
+        GameObject e = Instantiate(effect);
+        
         e.transform.position = gameObject.transform.position;
         Destroy(e, 2.0f);
 

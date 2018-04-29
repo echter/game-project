@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114105193746323656}
   - component: {fileID: 114917335870777284}
   - component: {fileID: 114396117778296836}
+  - component: {fileID: 114662497439467994}
+  - component: {fileID: 114992315739656954}
   m_Layer: 2
   m_Name: Player
   m_TagString: player
@@ -288,6 +290,38 @@ MonoBehaviour:
   PrimarySpellBinding: 113
   SecondarySpellBinding: 119
   TertiarySpellBinding: 101
+--- !u!114 &114662497439467994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266620504128782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 56
+    i1: 51
+    i2: 87
+    i3: 176
+    i4: 224
+    i5: 170
+    i6: 83
+    i7: 20
+    i8: 25
+    i9: 57
+    i10: 89
+    i11: 103
+    i12: 93
+    i13: 168
+    i14: 159
+    i15: 240
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114917335870777284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,6 +338,27 @@ MonoBehaviour:
     type: 2}
   SpellSpawn: {fileID: 1645349289170902}
   Player: {fileID: 114105193746323656}
+--- !u!114 &114992315739656954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266620504128782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!136 &136124420078656514
 CapsuleCollider:
   m_ObjectHideFlags: 1

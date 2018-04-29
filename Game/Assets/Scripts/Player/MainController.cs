@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class MainController : MonoBehaviour
+public class MainController : NetworkBehaviour
 {
 
     // The desired goal of the character
@@ -34,6 +35,10 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
+        if (!hasAuthority)
+        {
+            return;
+        }
         if (status != 0)
         {
             // If wanting to walk, set the walk goal
@@ -46,9 +51,12 @@ public class MainController : MonoBehaviour
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
+	    if (!hasAuthority)
+	    {
+	        return;
+	    }
         // If not walking, walk velocity is 0
-	    if (status != 1)
+        if (status != 1)
 	    {
 	        walkVelocity = Vector3.zero;
 	    }

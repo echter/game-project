@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class SpellSpawnController : MonoBehaviour {
+public class SpellSpawnController : NetworkBehaviour {
 
     // Drag and drop spell object in editor for this to be initialized
     public GameObject BasicSpell;
@@ -37,6 +38,11 @@ public class SpellSpawnController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        if (!hasAuthority)
+        {
+            return;
+        }
+
         CanShootPrimarySpell();
         CanShootSecondarySpell();
 
@@ -47,7 +53,7 @@ public class SpellSpawnController : MonoBehaviour {
             {
                 if (_primarySpellCooldownBoolean == false)
                 {
-                    ShootSpell(playerSpells.primarySpell, BasicSpell);
+                    CmdShootSpell(playerSpells.primarySpell, BasicSpell);
                     _primarySpellCooldownBoolean = true;
                 }
             }
@@ -57,7 +63,7 @@ public class SpellSpawnController : MonoBehaviour {
             {
                 if (_secondarySpellCooldownBoolean == false)
                 {
-                    ShootSpell(playerSpells.secondarySpell, SecondarySpell);
+                    CmdShootSpell(playerSpells.secondarySpell, SecondarySpell);
                     _secondarySpellCooldownBoolean = true;
                 }
             }
@@ -101,7 +107,8 @@ public class SpellSpawnController : MonoBehaviour {
     }
 
     // Initializes a basic spell gameObject
-    public void ShootSpell(Spell spell, GameObject goSpell)
+    [Command]
+    public void CmdShootSpell(Spell spell, GameObject goSpell)
     {
 
         // Set the rotation of the spellObject to the players rotation so it goes in the right direction
@@ -114,6 +121,7 @@ public class SpellSpawnController : MonoBehaviour {
         }
 
         GameObject go = Instantiate(goSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
+        NetworkServer.Spawn(go);
         SpellController sp = go.GetComponent<SpellController>();
 
         sp.speed = spell.Speed;

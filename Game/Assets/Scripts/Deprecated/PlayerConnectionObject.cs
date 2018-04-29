@@ -8,8 +8,7 @@ public class PlayerConnectionObject : NetworkBehaviour
 {
 
     public GameObject PlayerUnitPrefab;
-    public GameObject spell;
-    public GameObject spellSpawn;
+
     private float timer;
 
     void Start()
