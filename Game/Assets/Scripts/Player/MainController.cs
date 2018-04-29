@@ -31,6 +31,18 @@ public class MainController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+
+    void Update()
+    {
+        if (status != 0)
+        {
+            // If wanting to walk, set the walk goal
+            if (Input.GetMouseButtonDown(1))
+            {
+                setWalkLocation();
+            }
+        }
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -48,12 +60,6 @@ public class MainController : MonoBehaviour
 	    }
 	    else
 	    {
-            // If wanting to walk, set the walk goal
-	        if (Input.GetMouseButtonDown(1))
-	        {
-	            setWalkLocation();
-	        }
-
             // If walking, run walk code
             if (status == 1)
 	        {

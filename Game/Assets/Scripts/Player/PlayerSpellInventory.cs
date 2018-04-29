@@ -9,8 +9,8 @@ public class PlayerSpellInventory : MonoBehaviour
     public KeyCode SecondarySpellBinding = KeyCode.W;
     public KeyCode TertiarySpellBinding;
 
-    public Spell primarySpell = new Spell(0.1f, 10.0f, 2.0f, 1.0f, 50.0f);
-    public Spell secondarySpell = new Spell(0.3f, 1000f, 5.0f, 5.0f, 100.0f);
+    public Spell primarySpell = new Spell(0.4f, 10.0f, 2.0f, 1.0f, 50.0f);
+    public Spell secondarySpell = new Spell(0.3f, 300f, 5.0f, 5.0f, 100.0f);
     public Spell tertiarySpell;
 
     // Use this for initialization
