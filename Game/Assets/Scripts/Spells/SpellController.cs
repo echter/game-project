@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,7 +7,7 @@ using UnityEngine.Networking;
 public class SpellController : NetworkBehaviour
 {
 
-    public GameObject effect;
+    private String effect = "Explosion";
 
     public float speed;
     private Vector3 velocity;
@@ -14,12 +15,14 @@ public class SpellController : NetworkBehaviour
 
     public float stunTime;
 
+    private NetworkIdentity spellId;
 
-	// Use this for initialization
-	void Start ()
+
+    // Use this for initialization
+    void Start ()
 	{
-
-	}
+	    spellId = gameObject.GetComponent<NetworkIdentity>();
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -30,26 +33,42 @@ public class SpellController : NetworkBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        GameObject e = Instantiate(effect);
+        if (!isServer)
+        {
+            return;
+        }
         
-        e.transform.position = gameObject.transform.position;
-        Destroy(e, 2.0f);
-
+        GameObject go = NetworkServer.FindLocalObject(gameObject.GetComponent<NetworkIdentity>().netId);
+        RpcSpawnEffect(go.transform.position, effect);
         if (collision.gameObject.tag.Equals("player"))
         {
-            DoPhysics(collision.gameObject);
-        }
+            NetworkIdentity id = collision.gameObject.GetComponent<NetworkIdentity>();
+            MainController mainController = collision.gameObject.GetComponent<MainController>();
+            Rigidbody hitRB = collision.gameObject.GetComponent<Rigidbody>();
+            Vector3 totalVelocity = (velocity * knockbackFactor) + mainController.walkVelocity;
+            hitRB.velocity = totalVelocity;
 
-        Destroy(gameObject);
+            RpcDoPhysics(id);
+        }
+        go.SetActive(false);
+        Destroy(go, 0.1f);
     }
 
-
-    void DoPhysics(GameObject collision)
+    [ClientRpc]
+    void RpcDoPhysics(NetworkIdentity id)
     {
-        Debug.Log("doing");
+        GameObject collision = ClientScene.FindLocalObject(id.netId);
         MainController mainController = collision.GetComponent<MainController>();
-        Rigidbody hitRB = collision.GetComponent<Rigidbody>();
+        Rigidbody hitRB = collision.gameObject.GetComponent<Rigidbody>();
         Vector3 totalVelocity = (velocity * knockbackFactor) + mainController.walkVelocity;
         hitRB.velocity = totalVelocity;
+    }
+
+    [ClientRpc]
+    void RpcSpawnEffect(Vector3 position, String effectName)
+    {
+        GameObject e = Instantiate(Resources.Load<GameObject>(effectName));
+        e.transform.position = position;
+        Destroy(e, 2.0f);
     }
 }

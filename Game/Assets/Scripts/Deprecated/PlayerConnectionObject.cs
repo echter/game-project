@@ -20,19 +20,11 @@ public class PlayerConnectionObject : NetworkBehaviour
         CmdSpawnMyUnit();
     }
 
-    void Update()
-    {
-        if (isLocalPlayer == false)
-        {
-            return;
-        }
-    }
-
     [Command]
     void CmdSpawnMyUnit()
     {
         GameObject go = Instantiate(PlayerUnitPrefab);
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
-        go.transform.parent = this.gameObject.transform;
+        go.transform.parent = gameObject.transform;
     }
 }

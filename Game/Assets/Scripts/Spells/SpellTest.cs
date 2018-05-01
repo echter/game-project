@@ -19,7 +19,7 @@ public class SpellTest : NetworkBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	    if (!hasAuthority)
+	    if (!hasAuthority && !isServer)
 	    {
 	        return;
 	    }

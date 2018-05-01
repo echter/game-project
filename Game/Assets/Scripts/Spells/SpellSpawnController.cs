@@ -35,6 +35,12 @@ public class SpellSpawnController : NetworkBehaviour {
         playerSpells = gameObject.GetComponent<PlayerSpellInventory>();
     }
 
+    // Put all physics related code here
+    void FixedUpdate()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update () {
 
@@ -53,7 +59,17 @@ public class SpellSpawnController : NetworkBehaviour {
             {
                 if (_primarySpellCooldownBoolean == false)
                 {
-                    ShootSpell(playerSpells.primarySpell, BasicSpell);
+                    //ShootSpell(playerSpells.primarySpell, BasicSpell);
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100f))
+                    {
+                        Vector3 location = hit.point;
+                        RotateToPosition(location);
+                    }
+                    NetworkIdentity id = gameObject.GetComponent<NetworkIdentity>();
+                    CmdUpdateRotation(id.netId, gameObject.transform.rotation);
+                    CmdSpawnSpell();
                     _primarySpellCooldownBoolean = true;
                 }
             }
@@ -63,7 +79,7 @@ public class SpellSpawnController : NetworkBehaviour {
             {
                 if (_secondarySpellCooldownBoolean == false)
                 {
-                    ShootSpell(playerSpells.secondarySpell, SecondarySpell);
+                    //ShootSpell(playerSpells.secondarySpell, SecondarySpell);
                     _secondarySpellCooldownBoolean = true;
                 }
             }
@@ -106,32 +122,39 @@ public class SpellSpawnController : NetworkBehaviour {
         }
     }
 
-    // Initializes a basic spell gameObject
-    public void ShootSpell(Spell spell, GameObject goSpell)
+    //// Initializes a basic spell gameObject
+    //public void ShootSpell(Spell spell, GameObject goSpell)
+    //{
+    //    // Set the rotation of the spellObject to the players rotation so it goes in the right direction
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(ray, out hit, 100f))
+    //    {
+    //        Vector3 location = hit.point;
+    //        RotateToPosition(location);
+    //    }
+    //    spawnableSpell = Instantiate(BasicSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
+    //    SpellController sp = spawnableSpell.GetComponent<SpellController>();
+    //    sp.speed = spell.Speed;
+    //    sp.knockbackFactor = spell.Kockback;
+    //    sp.stunTime = spell.StunTime;
+    //    CmdSpawnSpell();
+    //    _primaryCoolDownDuration = spell.CoolDownDuration;
+    //}
+
+    [Command]
+    private void CmdSpawnSpell()
     {
-        // Set the rotation of the spellObject to the players rotation so it goes in the right direction
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100f))
-        {
-            Vector3 location = hit.point;
-            RotateToPosition(location);
-        }
-        CmdSpawnSpell(goSpell, spell.Speed, spell.Kockback, spell.StunTime);
-        _primaryCoolDownDuration = spell.CoolDownDuration;
+        GameObject go = Instantiate(BasicSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
+        NetworkServer.Spawn(go);
+        Destroy(go, 5.0f);
     }
 
     [Command]
-    private void CmdSpawnSpell(GameObject spell, float speed, float knockback, float stunTime)
+    private void CmdUpdateRotation(NetworkInstanceId id, Quaternion rotation)
     {
-
-        GameObject go = Instantiate(spell, SpellSpawn.transform.position, gameObject.transform.rotation);
-        SpellController sp = go.GetComponent<SpellController>();
-        sp.speed = speed;
-        sp.knockbackFactor = knockback;
-        sp.stunTime = stunTime;
-        NetworkServer.Spawn(go);
-        Destroy(go, 5.0f);
+        GameObject go = NetworkServer.FindLocalObject(id);
+        go.GetComponent<Rigidbody>().transform.rotation = rotation;
     }
 
     // Rotate towards a vector position
