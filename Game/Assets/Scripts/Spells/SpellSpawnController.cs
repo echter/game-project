@@ -146,6 +146,8 @@ public class SpellSpawnController : NetworkBehaviour {
     private void CmdSpawnSpell()
     {
         GameObject go = Instantiate(BasicSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
+        SpellController sc = go.GetComponent<SpellController>();
+        sc.damage = 20;
         NetworkServer.Spawn(go);
         Destroy(go, 5.0f);
     }

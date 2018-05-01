@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class MainController : NetworkBehaviour
 {
+
+    public float MaxHealth = 100.0f;
+    [SyncVar] public float Health = 100.0f;
+    public Image HealthBar;
 
     // The desired goal of the character
     private Vector3 walkGoal;
@@ -35,6 +40,7 @@ public class MainController : NetworkBehaviour
 
     void Update()
     {
+        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float)(Health / MaxHealth), 10f);
         if (!hasAuthority)
         {
             return;

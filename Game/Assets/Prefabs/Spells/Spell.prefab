@@ -157,7 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62b6c4dec10d8e48b15cab75b66b0ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 1039559818462738, guid: 97a85cbebe50e3c42a96c042e24da929, type: 2}
   speed: 0.3
   knockbackFactor: 150
   stunTime: 1
@@ -173,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: 0.1
+  m_SendInterval: 0
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
