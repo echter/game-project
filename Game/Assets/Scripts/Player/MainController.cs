@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
 
 public class MainController : NetworkBehaviour
@@ -32,19 +33,35 @@ public class MainController : NetworkBehaviour
     // Determines the state of the character[ 0 = stunned, 1 = walking, 2 = idle]
     public int status = 2;
 
+    private Terrain terrain;
+    private float lavaTimer = 0.0f;
+
     // Use this for initialization
     void Start ()
     {
+        terrain = Terrain.activeTerrain;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
         HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float)(Health / MaxHealth), 10f);
+
         if (!hasAuthority)
         {
             return;
         }
+
+        if (getTerrainTextureAt(gameObject.transform.position).name.Equals("emissive"))
+        {
+            lavaTimer += Time.deltaTime;
+            if (lavaTimer > 0.5f)
+            {
+                CmdTakeLavaDamage();
+                lavaTimer = 0;
+            }
+        }
+
         if (status != 0)
         {
             // If wanting to walk, set the walk goal
@@ -152,5 +169,49 @@ public class MainController : NetworkBehaviour
     Vector3 cutYComponent(Vector3 vector)
     {
         return new Vector3(vector.x, 0, vector.z);
+    }
+
+    public Texture getTerrainTextureAt(Vector3 position)
+    {
+        // Set up:
+        Texture retval = new Texture();
+        Vector3 TS; // terrain size
+        Vector2 AS; // control texture size
+
+        TS = Terrain.activeTerrain.terrainData.size;
+        AS.x = Terrain.activeTerrain.terrainData.alphamapWidth;
+        AS.y = Terrain.activeTerrain.terrainData.alphamapHeight;
+        var terrainPos = terrain.transform.position;
+        var terrainData = terrain.terrainData;
+
+        // Lookup texture we are standing on:
+        var mapX = ((gameObject.transform.position.x - terrainPos.x) / TS.x) * terrainData.alphamapWidth;
+        var mapZ = ((gameObject.transform.position.z - terrainPos.z) / TS.z) * terrainData.alphamapHeight;
+        float[,,] TerrCntrl = Terrain.activeTerrain.terrainData.GetAlphamaps((int)mapX, (int)mapZ, 1, 1);
+
+        TerrainData TD = Terrain.activeTerrain.terrainData;
+
+        for (int i = 0; i < TD.splatPrototypes.Length; i++)
+        {
+            if (TerrCntrl[0, 0, i] > .5f)
+            {
+                retval = TD.splatPrototypes[i].texture;
+            }
+
+        }
+
+
+        return retval;
+    }
+
+    [Command]
+    void CmdTakeLavaDamage()
+    {
+        Health -= 5.0f;
+        if (Health <= 0)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject, 0.1f);
+        }
     }
 }
