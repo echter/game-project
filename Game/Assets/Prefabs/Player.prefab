@@ -309,7 +309,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266620504128782}
   serializedVersion: 2
-  m_Mass: 80
+  m_Mass: 100
   m_Drag: 5
   m_AngularDrag: 5
   m_UseGravity: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.4852941, b: 0.08367141, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.17241383, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

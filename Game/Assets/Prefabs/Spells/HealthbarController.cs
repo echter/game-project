@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class HealthbarController : NetworkBehaviour {
+public class HealthbarController : MonoBehaviour {
 
     Quaternion rotation;
     void Awake()
