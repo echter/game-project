@@ -79,13 +79,10 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1069353189145092}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1a6c6030ce36e64ebf2d32164f59222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerUnitPrefab: {fileID: 1659012217268548, guid: 69f4d23424db7434c981152b7b056300,
+  PlayerUnitPrefab: {fileID: 1266620504128782, guid: 383357b0e0aa5314193959675da89ff0,
     type: 2}
-  spell: {fileID: 1285901047664116, guid: aaa35499edac31a41bdc2812ebf89784, type: 2}
-  spellSpawn: {fileID: 1280068961470400, guid: 69f4d23424db7434c981152b7b056300, type: 2}
-  navMesh: {fileID: 0}

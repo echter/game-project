@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class MainController : MonoBehaviour
+public class MainController : NetworkBehaviour
 {
+
+    public float MaxHealth = 100.0f;
+    [SyncVar] public float Health = 100.0f;
+    public Image HealthBar;
 
     // The desired goal of the character
     private Vector3 walkGoal;
@@ -31,12 +37,32 @@ public class MainController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+
+    void Update()
+    {
+        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, (float)(Health / MaxHealth), 10f);
+        if (!hasAuthority)
+        {
+            return;
+        }
+        if (status != 0)
+        {
+            // If wanting to walk, set the walk goal
+            if (Input.GetMouseButtonDown(1))
+            {
+                setWalkLocation();
+            }
+        }
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
+	    if (!hasAuthority)
+	    {
+	        return;
+	    }
         // If not walking, walk velocity is 0
-	    if (status != 1)
+        if (status != 1)
 	    {
 	        walkVelocity = Vector3.zero;
 	    }
@@ -48,12 +74,6 @@ public class MainController : MonoBehaviour
 	    }
 	    else
 	    {
-            // If wanting to walk, set the walk goal
-	        if (Input.GetMouseButtonDown(1))
-	        {
-	            setWalkLocation();
-	        }
-
             // If walking, run walk code
             if (status == 1)
 	        {

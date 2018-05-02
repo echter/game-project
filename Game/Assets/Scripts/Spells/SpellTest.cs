@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class SpellTest : MonoBehaviour
+public class SpellTest : NetworkBehaviour
 {
 
     public GameObject spell;
@@ -18,19 +19,28 @@ public class SpellTest : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+	    if (!hasAuthority && !isServer)
+	    {
+	        return;
+	    }
+
 	    timer += Time.deltaTime;
 
 	    if (timer > 2)
 	    {
-	        ShootSpell();
-	        timer = 0;
+	        CmdShootSpell();
+            timer = 0;
 	    }
 	}
 
-    void ShootSpell()
+    [Command]
+    void CmdShootSpell()
     {
         GameObject go = Instantiate(spell);
+        SpellController sc = go.GetComponent<SpellController>();
+        sc.damage = 20;
         go.transform.position = spellSpawn.transform.position;
+        NetworkServer.Spawn(go);
         Destroy(go, 5.0f);
     }
 }

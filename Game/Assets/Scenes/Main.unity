@@ -711,7 +711,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1807839585}
+      - m_Target: {fileID: 0}
         m_MethodName: Rebind
         m_Mode: 1
         m_Arguments:
@@ -913,60 +913,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
---- !u!114 &1807839585 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114396117778296836, guid: 383357b0e0aa5314193959675da89ff0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1825102693}
-  m_Script: {fileID: 11500000, guid: beabc3ff0c7ea4040966438e5299abf6, type: 3}
---- !u!1001 &1825102693
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4760992140213744, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114917335870777284, guid: 383357b0e0aa5314193959675da89ff0,
-        type: 2}
-      propertyPath: SecondarySpell
-      value: 
-      objectReference: {fileID: 1138861401597036, guid: 485385398ba966e4abbe6692d3978757,
-        type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1987800593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,7 +973,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017099622
 GameObject:
@@ -1089,7 +1035,8 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1285901047664116, guid: aaa35499edac31a41bdc2812ebf89784, type: 2}
-  - {fileID: 1659012217268548, guid: 69f4d23424db7434c981152b7b056300, type: 2}
+  - {fileID: 1266620504128782, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
+  - {fileID: 1138861401597036, guid: 485385398ba966e4abbe6692d3978757, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1163,6 +1110,38 @@ GameObject:
   m_PrefabParentObject: {fileID: 1802889691399816, guid: 4fa2ebf68420bf84c830206b1f64a392,
     type: 2}
   m_PrefabInternal: {fileID: 115977787}
+--- !u!114 &2087082464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2087082460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 79
+    i1: 162
+    i2: 235
+    i3: 246
+    i4: 132
+    i5: 32
+    i6: 191
+    i7: 132
+    i8: 200
+    i9: 48
+    i10: 32
+    i11: 107
+    i12: 31
+    i13: 100
+    i14: 163
+    i15: 146
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &2087082465
 MonoBehaviour:
   m_ObjectHideFlags: 0
