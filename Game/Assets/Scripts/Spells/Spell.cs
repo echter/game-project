@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class Spell {
 
@@ -8,13 +9,18 @@ public class Spell {
     private float coolDownDuration;
     private float damage;
 
-    public Spell(float speed, float kockback, float stunTime, float coolDownDuration, float damage)
+    private GameObject prefab;
+    private String effectName;
+
+    public Spell(float speed, float kockback, float stunTime, float coolDownDuration, float damage, GameObject prefab, String effectName)
     {
         this.speed = speed;
         this.kockback = kockback;
         this.stunTime = stunTime;
         this.coolDownDuration = coolDownDuration;
         this.damage = damage;
+        this.prefab = prefab;
+        this.effectName = effectName;
     }
 
     public float Speed
@@ -74,6 +80,30 @@ public class Spell {
         set
         {
             damage = value;
+        }
+    }
+
+    public GameObject Prefab
+    {
+        get
+        {
+            return prefab;
+        }
+        set
+        {
+            prefab = value;
+        }
+    }
+
+    public String EffectName
+    {
+        get
+        {
+            return effectName;
+        }
+        set
+        {
+            effectName = value;
         }
     }
 }

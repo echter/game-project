@@ -5,25 +5,49 @@ using UnityEngine;
 public class PlayerSpellInventory : MonoBehaviour
 {
 
-    public KeyCode PrimarySpellBinding = KeyCode.Q;
-    public KeyCode SecondarySpellBinding = KeyCode.W;
-    public KeyCode TertiarySpellBinding;
+    private KeyCode PrimarySpellBinding = KeyCode.Q;
+    private KeyCode SecondarySpellBinding = KeyCode.W;
+    private KeyCode TertiarySpellBinding;
 
-    public Spell primarySpell = new Spell(0.4f, 10.0f, 2.0f, 1.0f, 50.0f);
-    public Spell secondarySpell = new Spell(0.3f, 300f, 5.0f, 5.0f, 100.0f);
-    public Spell tertiarySpell;
+    private Spell primarySpell;
+    private Spell secondarySpell;
+    private Spell tertiarySpell;
+
+    private SpellList availableSpells;
 
     // Use this for initialization
     void Start ()
 	{
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	    availableSpells = gameObject.GetComponent<SpellList>();
+    }
 
-    public void Rebind()
+    public void InitiateSpells()
     {
+        primarySpell = availableSpells.getBasicSpell();
+        secondarySpell = availableSpells.getFireSpell();
+    }
+
+    public Spell Primary
+    {
+        get { return primarySpell; }
+        set { primarySpell = value; }
+    }
+
+    public Spell Secondary
+    {
+        get { return secondarySpell; }
+        set { secondarySpell = value; }
+    }
+
+    public KeyCode PrimaryKey
+    {
+        get { return PrimarySpellBinding; }
+        set { PrimarySpellBinding = value; }
+    }
+
+    public KeyCode SecondaryKey
+    {
+        get { return SecondarySpellBinding; }
+        set { SecondarySpellBinding = value; }
     }
 }

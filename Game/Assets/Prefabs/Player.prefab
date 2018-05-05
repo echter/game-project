@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 114396117778296836}
   - component: {fileID: 114662497439467994}
   - component: {fileID: 114992315739656954}
+  - component: {fileID: 114406840357483850}
   m_Layer: 2
   m_Name: Player
   m_TagString: player
@@ -395,6 +396,23 @@ MonoBehaviour:
   PrimarySpellBinding: 113
   SecondarySpellBinding: 119
   TertiarySpellBinding: 101
+--- !u!114 &114406840357483850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266620504128782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62897f9ff143368429d902f0a8d68fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicSpellPrefab: {fileID: 1285901047664116, guid: aaa35499edac31a41bdc2812ebf89784,
+    type: 2}
+  fireSpellPrefab: {fileID: 1138861401597036, guid: 485385398ba966e4abbe6692d3978757,
+    type: 2}
+  iceSpellPrefab: {fileID: 0}
+  gravitySpellPrefab: {fileID: 0}
 --- !u!114 &114648057262556220
 MonoBehaviour:
   m_ObjectHideFlags: 1

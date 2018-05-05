@@ -1037,6 +1037,8 @@ MonoBehaviour:
   - {fileID: 1285901047664116, guid: aaa35499edac31a41bdc2812ebf89784, type: 2}
   - {fileID: 1266620504128782, guid: 383357b0e0aa5314193959675da89ff0, type: 2}
   - {fileID: 1138861401597036, guid: 485385398ba966e4abbe6692d3978757, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
