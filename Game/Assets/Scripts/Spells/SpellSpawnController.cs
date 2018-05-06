@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class SpellSpawnController : NetworkBehaviour {
 
@@ -46,7 +47,6 @@ public class SpellSpawnController : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Debug.Log(playerSpells.Primary.EffectName);
         if (!hasAuthority)
         {
             return;
@@ -122,12 +122,12 @@ public class SpellSpawnController : NetworkBehaviour {
     }
 
     [Command]
-    private void CmdSpawnSpell(string spellName)
+    private void CmdSpawnSpell(string effectName, string spellName)
     {
-        GameObject go = Instantiate(SpellPrefab, SpellSpawn.transform.position, gameObject.transform.rotation);
+        GameObject go = Instantiate(Resources.Load<GameObject>(spellName), SpellSpawn.transform.position, gameObject.transform.rotation);
         SpellController sc = go.GetComponent<SpellController>();
         sc.damage = 20;
-        sc.effectName = spellName;
+        sc.effectName = effectName;
         NetworkServer.Spawn(go);
         Destroy(go, 5.0f);
     }
@@ -169,34 +169,6 @@ public class SpellSpawnController : NetworkBehaviour {
 
         // Set prefab
         SpellPrefab = spell.Prefab;
-
-        CmdSpawnSpell(spell.EffectName);
-    }
-
-    public void SetPrimarySpell()
-    {
-        if (isClient)
-        {
-            Debug.Log("im a client");
-        }
-        if (isServer)
-        {
-            Debug.Log("im a server");
-        }
-        if (!hasAuthority)
-        {
-            Debug.Log("denied");
-            return;
-        }
-        Debug.Log("granted");
-        Spell spell = gameObject.GetComponent<SpellList>().getFireSpell();
-        Debug.Log(spell.EffectName);
-        gameObject.GetComponent<PlayerSpellInventory>().Primary = spell;
-        Debug.Log(gameObject.GetComponent<PlayerSpellInventory>().Primary.EffectName);
-    }
-
-    public void Rebind()
-    {
-        playerSpells.PrimaryKey = KeyCode.A;
+        CmdSpawnSpell(spell.EffectName, SpellPrefab.name);
     }
 }
