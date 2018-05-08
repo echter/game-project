@@ -39,6 +39,7 @@ public class SpellTest : NetworkBehaviour
         GameObject go = Instantiate(spell);
         SpellController sc = go.GetComponent<SpellController>();
         sc.damage = 20;
+        sc.effectName = "Explosion";
         go.transform.position = spellSpawn.transform.position;
         NetworkServer.Spawn(go);
         Destroy(go, 5.0f);
