@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class SpellSpawnController : NetworkBehaviour {
 
     // Drag and drop spell object in editor for this to be initialized
-    public GameObject BasicSpell;
-    public GameObject SecondarySpell;
+    private GameObject SpellPrefab;
 
     // Position for the spell to be spawned
     public GameObject SpellSpawn;
@@ -33,6 +35,8 @@ public class SpellSpawnController : NetworkBehaviour {
         _rb = gameObject.GetComponent<Rigidbody>();
         Player = gameObject.GetComponent<MainController>();
         playerSpells = gameObject.GetComponent<PlayerSpellInventory>();
+
+        StartCoroutine(SpellInit(0.1f));
     }
 
     // Put all physics related code here
@@ -43,7 +47,6 @@ public class SpellSpawnController : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
-
         if (!hasAuthority)
         {
             return;
@@ -55,32 +58,28 @@ public class SpellSpawnController : NetworkBehaviour {
         if (Player.status != 0)
         {
             // If wanting to shootSpell, initialize a basic spell
-            if (Input.GetKeyDown(playerSpells.PrimarySpellBinding))
+            if (Input.GetKeyDown(playerSpells.PrimaryKey))
             {
                 if (_primarySpellCooldownBoolean == false)
                 {
-                    //ShootSpell(playerSpells.primarySpell, BasicSpell);
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 100f))
-                    {
-                        Vector3 location = hit.point;
-                        RotateToPosition(location);
-                    }
-                    NetworkIdentity id = gameObject.GetComponent<NetworkIdentity>();
-                    CmdUpdateRotation(id.netId, gameObject.transform.rotation);
-                    CmdSpawnSpell();
+                    SpellLogic(playerSpells.Primary);
+
+                    // Set cooldown
                     _primarySpellCooldownBoolean = true;
+                    _primaryCoolDownDuration = playerSpells.Primary.CoolDownDuration;
                 }
             }
 
             // If wanting to shootSpell, initialize a secondary spell
-            if (Input.GetKeyDown(playerSpells.SecondarySpellBinding))
+            if (Input.GetKeyDown(playerSpells.SecondaryKey))
             {
                 if (_secondarySpellCooldownBoolean == false)
                 {
-                    //ShootSpell(playerSpells.secondarySpell, SecondarySpell);
+                    SpellLogic(playerSpells.Secondary);
+
+                    // Set cooldown
                     _secondarySpellCooldownBoolean = true;
+                    _secondaryCoolDownDuration = playerSpells.Secondary.CoolDownDuration;
                 }
             }
         }
@@ -122,32 +121,13 @@ public class SpellSpawnController : NetworkBehaviour {
         }
     }
 
-    //// Initializes a basic spell gameObject
-    //public void ShootSpell(Spell spell, GameObject goSpell)
-    //{
-    //    // Set the rotation of the spellObject to the players rotation so it goes in the right direction
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(ray, out hit, 100f))
-    //    {
-    //        Vector3 location = hit.point;
-    //        RotateToPosition(location);
-    //    }
-    //    spawnableSpell = Instantiate(BasicSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
-    //    SpellController sp = spawnableSpell.GetComponent<SpellController>();
-    //    sp.speed = spell.Speed;
-    //    sp.knockbackFactor = spell.Kockback;
-    //    sp.stunTime = spell.StunTime;
-    //    CmdSpawnSpell();
-    //    _primaryCoolDownDuration = spell.CoolDownDuration;
-    //}
-
     [Command]
-    private void CmdSpawnSpell()
+    private void CmdSpawnSpell(string effectName, string spellName)
     {
-        GameObject go = Instantiate(BasicSpell, SpellSpawn.transform.position, gameObject.transform.rotation);
+        GameObject go = Instantiate(Resources.Load<GameObject>(spellName), SpellSpawn.transform.position, gameObject.transform.rotation);
         SpellController sc = go.GetComponent<SpellController>();
         sc.damage = 20;
+        sc.effectName = effectName;
         NetworkServer.Spawn(go);
         Destroy(go, 5.0f);
     }
@@ -166,5 +146,29 @@ public class SpellSpawnController : NetworkBehaviour {
 
         // Set rigidbody rotation to match transform position
         _rb.rotation = gameObject.transform.rotation;
+    }
+
+    IEnumerator SpellInit(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        playerSpells.InitiateSpells();
+    }
+
+    void SpellLogic(Spell spell)
+    {
+        //ShootSpell(playerSpells.primarySpell, SpellPrefab);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f))
+        {
+            Vector3 location = hit.point;
+            RotateToPosition(location);
+        }
+        NetworkIdentity id = gameObject.GetComponent<NetworkIdentity>();
+        CmdUpdateRotation(id.netId, gameObject.transform.rotation);
+
+        // Set prefab
+        SpellPrefab = spell.Prefab;
+        CmdSpawnSpell(spell.EffectName, SpellPrefab.name);
     }
 }

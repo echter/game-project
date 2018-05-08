@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SpellController : NetworkBehaviour
 {
-    private String effect = "Explosion";
+    public String effectName;
 
     public float speed;
     public float damage;
@@ -40,8 +40,7 @@ public class SpellController : NetworkBehaviour
         }
         // This is the spell gameobject on the server
         GameObject go = NetworkServer.FindLocalObject(gameObject.GetComponent<NetworkIdentity>().netId);
-
-        RpcSpawnEffect(go.transform.position, effect);
+        RpcSpawnEffect(go.transform.position, effectName);
         if (collision.gameObject.tag.Equals("player"))
         {
             NetworkIdentity id = collision.gameObject.GetComponent<NetworkIdentity>();
